@@ -5,7 +5,7 @@ import author from './author'
 import about from './about'
 import heroSlider from './heroSlider'
 import product from './product.jsx'
-
+import navigation from "./navigation.js"
 export const schemaTypes =
     [   
         post,
@@ -15,5 +15,5 @@ export const schemaTypes =
         about,
         heroSlider,
         product,
-        
+        navigation
     ]
