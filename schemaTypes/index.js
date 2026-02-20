@@ -19,6 +19,11 @@ import globalTokens from './globalTokens'
 import testimonials from './testimonials.jsx'
 import afterSalesPolicy from './afterSalesPolicy.jsx'
 import seo from './seo.jsx'
+import navItem from './objects/navItem.js'
+import navbarComponent from './navbarComponent.js'
+import siteSettings from './siteSettings.js'
+import heroSlide from './objects/heroSlide.js'
+import r2Image from './objects/r2Image.js'
 
 export const schemaTypes =
     [   
@@ -28,6 +33,8 @@ export const schemaTypes =
         blockContent,
         about,
         heroSlider,
+        heroSlide,
+        r2Image,
         product,
         navigation,
         keyValue,
@@ -42,5 +49,8 @@ export const schemaTypes =
         globalTokens,
         testimonials,
         afterSalesPolicy,
-        seo
+        seo,
+        navItem,
+        navbarComponent,
+        siteSettings
     ]

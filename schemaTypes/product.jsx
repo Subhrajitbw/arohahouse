@@ -367,16 +367,55 @@ export default {
       type: 'object',
       group: 'trust',
       fields: [
-        { name: 'structuralWarrantyYears', type: 'number', initialValue: 5 },
-        { name: 'upholsteryWarrantyYears', type: 'number', initialValue: 1 },
-        { name: 'deliveryTimeline', type: 'text' },
+        {
+          name: 'warranties',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                { name: 'title', type: 'string' }, // Structural / Upholstery / Mechanism etc.
+
+                {
+                  name: 'included',
+                  type: 'array',
+                  of: [{ type: 'string' }]
+                },
+
+                {
+                  name: 'excluded',
+                  type: 'array',
+                  of: [{ type: 'string' }]
+                }
+              ]
+            }
+          ]
+        },
+
+        {
+          name: 'deliveryOptions',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                { name: 'type', type: 'string' },       // Standard, Express, White Glove
+                { name: 'timeline', type: 'string' },   // 7–10 Business Days
+                { name: 'description', type: 'text' }   // Optional extra details
+              ]
+            }
+          ]
+        },
+        { name: 'shipping', type: 'text' },
         { name: 'installationSupport', type: 'text' },
         { name: 'returnPolicy', type: 'text' },
+
         {
           name: 'lifetimeSupportServices',
           type: 'array',
           of: [{ type: 'string' }],
         },
+
         {
           name: 'supportContact',
           type: 'object',
@@ -385,7 +424,7 @@ export default {
             { name: 'phone', type: 'string' },
           ],
         },
-      ],
+      ]
     },
 
     // ======================

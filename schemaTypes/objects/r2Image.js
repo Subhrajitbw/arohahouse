@@ -1,28 +1,20 @@
-// schemas/objects/r2Image.js
-export const r2Image = {
+import { defineType, defineField } from "sanity"
+
+export default defineType({
   name: "r2Image",
   title: "R2 Image",
   type: "object",
   fields: [
-    {
+    defineField({
       name: "url",
       title: "Image URL",
       type: "url",
-      description: "Direct URL from Cloudflare R2.",
-    },
-    {
+      readOnly: true
+    }),
+    defineField({
       name: "alt",
       title: "Alt Text",
-      type: "string",
-    },
-  ],
-  preview: {
-    select: { title: "alt", url: "url" },
-    prepare({ title, url }) {
-      return {
-        title: title || "R2 Image",
-        subtitle: url,
-      }
-    },
-  },
-}
+      type: "string"
+    })
+  ]
+})

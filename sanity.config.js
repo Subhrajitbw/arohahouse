@@ -2,13 +2,13 @@ import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
-import {BasketIcon, TagIcon, CogIcon} from '@sanity/icons'
+import {BasketIcon, CogIcon} from '@sanity/icons'
 
 export default defineConfig({
   name: 'default',
   title: 'ArohaHouse',
 
-  projectId: 'plyu49lt', // Ensure this is filled
+  projectId: 'plyu49lt',
   dataset: 'production',
 
   plugins: [
@@ -16,9 +16,26 @@ export default defineConfig({
       title: 'Aroha Admin',
       structure: (S) =>
         S.list()
-          .title('Dashboard') // The main header
+          .title('Dashboard')
           .items([
-            // --- SECTION: COMMERCE ---
+
+            // =============================
+            // SITE SETTINGS (SINGLETON)
+            // =============================
+            S.listItem()
+              .title('Site Settings')
+              .icon(CogIcon)
+              .child(
+                S.document()
+                  .schemaType('siteSettings')
+                  .documentId('siteSettings')
+              ),
+
+            S.divider(),
+
+            // =============================
+            // COMMERCE SECTION
+            // =============================
             S.listItem()
               .title('Product Catalog')
               .icon(BasketIcon)
@@ -27,15 +44,15 @@ export default defineConfig({
                   .title('All Products')
                   .defaultOrdering([{field: 'title', direction: 'asc'}])
               ),
-            
-            // Add more commerce items here later (e.g., Collections)
 
-            S.divider(), // Visual separator
+            S.divider(),
 
-            // --- SECTION: OTHER CONTENT ---
-            // Automatically add any other schemas you create (excluding 'product')
+            // =============================
+            // OTHER CONTENT
+            // =============================
             ...S.documentTypeListItems().filter(
-              (listItem) => !['product'].includes(listItem.getId())
+              (listItem) =>
+                !['product', 'siteSettings'].includes(listItem.getId())
             ),
           ]),
     }),
