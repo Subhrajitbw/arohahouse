@@ -31,6 +31,7 @@ export default {
     { name: 'medusaId', type: 'string', readOnly: true, group: 'basic' },
     { name: 'title', type: 'string', readOnly: true, group: 'basic' },
     { name: 'handle', type: 'string', readOnly: true, group: 'basic' },
+    { name: 'medusaType', type: 'string', readOnly: true, group: 'basic' },
 
     {
       name: 'brandName',
@@ -47,7 +48,7 @@ export default {
     },
 
     // ======================
-    // 2️⃣ PRICING BLOCK
+    // 2️⃣ PRICING
     // ======================
 
     {
@@ -73,7 +74,7 @@ export default {
     },
 
     // ======================
-    // 3️⃣ MEDIA (R2 SYSTEM UNTOUCHED)
+    // 3️⃣ MEDIA
     // ======================
 
     {
@@ -83,20 +84,6 @@ export default {
       readOnly: true,
       group: 'media',
       fields: [{ name: 'url', type: 'url' }],
-      preview: {
-        select: { url: 'url' },
-        prepare({ url }) {
-          return {
-            title: url ? 'Thumbnail' : 'No Image',
-            media: url ? (
-              <img
-                src={url}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            ) : ImagesIcon,
-          }
-        },
-      },
     },
 
     {
@@ -109,26 +96,12 @@ export default {
         {
           type: 'object',
           fields: [{ name: 'url', type: 'url' }],
-          preview: {
-            select: { url: 'url' },
-            prepare({ url }) {
-              return {
-                title: 'Gallery Image',
-                media: url ? (
-                  <img
-                    src={url}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                ) : ImagesIcon,
-              }
-            },
-          },
         },
       ],
     },
 
     // ======================
-    // 4️⃣ PRODUCT IDENTITY (AI ENTITY CORE)
+    // 4️⃣ PRODUCT IDENTITY
     // ======================
 
     {
@@ -147,25 +120,18 @@ export default {
     {
       name: 'comparisonTags',
       type: 'array',
-      title: 'Comparison Tags',
       of: [{ type: 'string' }],
       group: 'identity',
     },
 
     // ======================
-    // 5️⃣ PRODUCT HIGHLIGHTS
+    // 5️⃣ HIGHLIGHTS
     // ======================
 
-    {
-      name: 'shortIntro',
-      type: 'text',
-      rows: 2,
-      group: 'highlights',
-    },
+    { name: 'shortIntro', type: 'text', rows: 2, group: 'highlights' },
 
     {
       name: 'description',
-      title: 'Description',
       type: 'array',
       of: [{ type: 'block' }],
       group: 'highlights',
@@ -186,36 +152,12 @@ export default {
     },
 
     {
-      name: 'trustBadges',
-      type: 'array',
-      of: [{ type: 'string' }],
-      options: {
-        list: [
-          'Made in India',
-          'Factory Direct',
-          'Customizable',
-          'Warranty',
-          'Contract Grade',
-        ],
-      },
-      group: 'highlights',
-    },
-
-    {
       name: 'cta',
       type: 'object',
       group: 'highlights',
       fields: [
-        {
-          name: 'primary',
-          type: 'string',
-          initialValue: 'Enquire Now',
-        },
-        {
-          name: 'secondary',
-          type: 'string',
-          initialValue: 'Customize Now',
-        },
+        { name: 'primary', type: 'string', initialValue: 'Enquire Now' },
+        { name: 'secondary', type: 'string', initialValue: 'Customize Now' },
       ],
     },
 
@@ -266,17 +208,13 @@ export default {
     },
 
     // ======================
-    // 7️⃣ USAGE & APPLICATION
+    // 7️⃣ USAGE
     // ======================
 
     {
       name: 'perfectFor',
       type: 'array',
       of: [{ type: 'string' }],
-      options: {
-        list: ['Homes', 'Hotels', 'Offices', 'Cafés', 'Studios'],
-        layout: 'grid',
-      },
       group: 'usage',
     },
 
@@ -288,143 +226,39 @@ export default {
     },
 
     // ======================
-    // 8️⃣ CUSTOMIZATION OPTIONS
+    // 8️⃣ CUSTOMIZATION (CENTRALIZED)
     // ======================
 
     {
-      name: 'customizationAttributes',
-      type: 'array',
+      name: 'customizationOverride',
+      title: 'Customization Override (Optional)',
+      type: 'reference',
+      to: [{ type: 'customizationMaster' }],
       group: 'customization',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'attributeName', type: 'string' },
-            {
-              name: 'options',
-              type: 'array',
-              of: [
-                {
-                  type: 'object',
-                  fields: [
-                    { name: 'label', type: 'string' },
-                    { name: 'description', type: 'string' },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
+      description: 'Override the type-based customization system.'
     },
 
     // ======================
-    // 9️⃣ SOCIAL PROOF
+    // 🔟 AFTER-SALES & TRUST (CENTRALIZED)
     // ======================
 
     {
-      name: 'testimonials',
-      type: 'array',
-      group: 'social',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'quote', type: 'text' },
-            { name: 'clientName', type: 'string' },
-          ],
-        },
-      ],
-    },
-
-    {
-      name: 'clientLogos',
-      type: 'array',
-      group: 'social',
-      of: [{ type: 'image' }],
-    },
-
-    {
-      name: 'projectMentions',
-      type: 'array',
-      group: 'social',
-      of: [{ type: 'string' }],
-    },
-
-    {
-      name: 'awards',
-      type: 'array',
-      group: 'social',
-      of: [{ type: 'string' }],
-    },
-
-    // ======================
-    // 🔟 AFTER-SALES & TRUST
-    // ======================
-
-    {
-      name: 'afterSales',
-      type: 'object',
+      name: 'afterSalesOverride',
+      title: 'After Sales Override (Optional)',
+      type: 'reference',
+      to: [{ type: 'policyDocument' }],
+      options: { filter: 'policyType == "afterSales"' },
       group: 'trust',
-      fields: [
-        {
-          name: 'warranties',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                { name: 'title', type: 'string' }, // Structural / Upholstery / Mechanism etc.
+      description: 'Override the type-based after-sales policy.'
+    },
 
-                {
-                  name: 'included',
-                  type: 'array',
-                  of: [{ type: 'string' }]
-                },
-
-                {
-                  name: 'excluded',
-                  type: 'array',
-                  of: [{ type: 'string' }]
-                }
-              ]
-            }
-          ]
-        },
-
-        {
-          name: 'deliveryOptions',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                { name: 'type', type: 'string' },       // Standard, Express, White Glove
-                { name: 'timeline', type: 'string' },   // 7–10 Business Days
-                { name: 'description', type: 'text' }   // Optional extra details
-              ]
-            }
-          ]
-        },
-        { name: 'shipping', type: 'text' },
-        { name: 'installationSupport', type: 'text' },
-        { name: 'returnPolicy', type: 'text' },
-
-        {
-          name: 'lifetimeSupportServices',
-          type: 'array',
-          of: [{ type: 'string' }],
-        },
-
-        {
-          name: 'supportContact',
-          type: 'object',
-          fields: [
-            { name: 'email', type: 'string' },
-            { name: 'phone', type: 'string' },
-          ],
-        },
-      ]
+    {
+      name: 'trustOverride',
+      title: 'Trust Section Override (Optional)',
+      type: 'reference',
+      to: [{ type: 'trustMaster' }],
+      group: 'trust',
+      description: 'Override the type-based trust section.'
     },
 
     // ======================
@@ -457,7 +291,7 @@ export default {
     },
 
     // ======================
-    // 🔗 RELATED PRODUCTS
+    // 🔗 RELATED
     // ======================
 
     {
@@ -466,6 +300,7 @@ export default {
       group: 'relations',
       of: [{ type: 'reference', to: [{ type: 'product' }] }],
     },
+
   ],
 
   preview: {

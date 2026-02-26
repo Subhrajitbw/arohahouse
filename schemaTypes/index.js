@@ -24,12 +24,16 @@ import navbarComponent from './navbarComponent.js'
 import siteSettings from './siteSettings.js'
 import heroSlide from './objects/heroSlide.js'
 import r2Image from './objects/r2Image.js'
+import policyDocument from './documents/policyDocument.js'
+import trustMaster from './documents/trustMaster.js'
+import customizationmaster from './documents/customizationmaster.js'
+import collection from './collection.jsx'
+import productType from './productType.jsx'
 
 export const schemaTypes =
     [   
         post,
         author,
-        category,
         blockContent,
         about,
         heroSlider,
@@ -52,5 +56,11 @@ export const schemaTypes =
         seo,
         navItem,
         navbarComponent,
-        siteSettings
+        siteSettings,
+        policyDocument,
+        trustMaster,
+        customizationmaster,
+        collection,
+        category,
+        productType
     ]
