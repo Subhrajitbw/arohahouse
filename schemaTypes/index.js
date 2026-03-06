@@ -26,7 +26,7 @@ import heroSlide from './objects/heroSlide.js'
 import r2Image from './objects/r2Image.js'
 import policyDocument from './documents/policyDocument.js'
 import trustMaster from './documents/trustMaster.js'
-import customizationmaster from './documents/customizationmaster.js'
+import customizationmaster from './documents/customizationMaster.js'
 import collection from './collection.jsx'
 import productType from './productType.jsx'
 
